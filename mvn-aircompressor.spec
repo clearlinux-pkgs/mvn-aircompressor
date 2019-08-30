@@ -4,7 +4,7 @@
 #
 Name     : mvn-aircompressor
 Version  : 0.10
-Release  : 2
+Release  : 3
 URL      : https://github.com/airlift/aircompressor/archive/0.10.tar.gz
 Source0  : https://github.com/airlift/aircompressor/archive/0.10.tar.gz
 Source1  : https://repo1.maven.org/maven2/io/airlift/aircompressor/0.10/aircompressor-0.10.jar
