@@ -4,15 +4,18 @@
 #
 Name     : mvn-aircompressor
 Version  : 0.10
-Release  : 1
+Release  : 2
 URL      : https://github.com/airlift/aircompressor/archive/0.10.tar.gz
 Source0  : https://github.com/airlift/aircompressor/archive/0.10.tar.gz
 Source1  : https://repo1.maven.org/maven2/io/airlift/aircompressor/0.10/aircompressor-0.10.jar
 Source2  : https://repo1.maven.org/maven2/io/airlift/aircompressor/0.10/aircompressor-0.10.pom
+Source3  : https://repo1.maven.org/maven2/io/airlift/aircompressor/0.8/aircompressor-0.8.jar
+Source4  : https://repo1.maven.org/maven2/io/airlift/aircompressor/0.8/aircompressor-0.8.pom
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: mvn-aircompressor-data = %{version}-%{release}
+Requires: mvn-aircompressor-license = %{version}-%{release}
 
 %description
 # Compression in pure Java
@@ -27,16 +30,34 @@ Group: Data
 data components for the mvn-aircompressor package.
 
 
+%package license
+Summary: license components for the mvn-aircompressor package.
+Group: Default
+
+%description license
+license components for the mvn-aircompressor package.
+
+
 %prep
+%setup -q -n aircompressor-0.10
 
 %build
 
 %install
+mkdir -p %{buildroot}/usr/share/package-licenses/mvn-aircompressor
+cp license.txt %{buildroot}/usr/share/package-licenses/mvn-aircompressor/license.txt
+cp src/license/LICENSE-HEADER.txt %{buildroot}/usr/share/package-licenses/mvn-aircompressor/src_license_LICENSE-HEADER.txt
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompressor/0.10
-cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompressor/0.10
+cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompressor/0.10/aircompressor-0.10.jar
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompressor/0.10
-cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompressor/0.10
+cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompressor/0.10/aircompressor-0.10.pom
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompressor/0.8
+cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompressor/0.8/aircompressor-0.8.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompressor/0.8
+cp %{SOURCE4} %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompressor/0.8/aircompressor-0.8.pom
 
 
 %files
@@ -46,3 +67,10 @@ cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/io/airlift/aircompresso
 %defattr(-,root,root,-)
 /usr/share/java/.m2/repository/io/airlift/aircompressor/0.10/aircompressor-0.10.jar
 /usr/share/java/.m2/repository/io/airlift/aircompressor/0.10/aircompressor-0.10.pom
+/usr/share/java/.m2/repository/io/airlift/aircompressor/0.8/aircompressor-0.8.jar
+/usr/share/java/.m2/repository/io/airlift/aircompressor/0.8/aircompressor-0.8.pom
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/mvn-aircompressor/license.txt
+/usr/share/package-licenses/mvn-aircompressor/src_license_LICENSE-HEADER.txt
